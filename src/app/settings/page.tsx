@@ -27,7 +27,7 @@ export default function SettingsPage() {
 
   const { providers, setProviderSettings } = useProvidersStore();
   const { models, addModel, deleteModel, toggleModel } = useModelsStore();
-  const { loopCap, similarityThreshold, setLoopCap, setSimilarityThreshold } =
+  const { loopCap, similarityThreshold, classificationThresholds, setLoopCap, setSimilarityThreshold, setClassificationThresholds } =
     useUIStore();
 
   const toggleKeyVisibility = (provider: string) => {
@@ -339,6 +339,52 @@ export default function SettingsPage() {
                   />
                   <p className="text-sm text-muted-foreground">
                     Threshold for detecting similar responses (0.0 - 1.0).
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="red-threshold">
+                    AI Detection Threshold (Red)
+                  </Label>
+                  <Input
+                    id="red-threshold"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    max="1"
+                    value={classificationThresholds.red}
+                    onChange={(e) =>
+                      setClassificationThresholds({
+                        ...classificationThresholds,
+                        red: parseFloat(e.target.value)
+                      })
+                    }
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Responses above this threshold are classified as AI-generated (red).
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="yellow-threshold">
+                    Potential AI Threshold (Yellow)
+                  </Label>
+                  <Input
+                    id="yellow-threshold"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    max="1"
+                    value={classificationThresholds.yellow}
+                    onChange={(e) =>
+                      setClassificationThresholds({
+                        ...classificationThresholds,
+                        yellow: parseFloat(e.target.value)
+                      })
+                    }
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Responses above this threshold are flagged as potential AI (yellow).
                   </p>
                 </div>
               </div>
