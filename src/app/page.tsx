@@ -35,6 +35,8 @@ import {
   Settings,
 } from "lucide-react";
 import Link from "next/link";
+import { ExpertResponseUpload } from "@/components/ExpertResponseUpload";
+import { ExpertAnalysis } from "@/components/ExpertAnalysis";
 
 export default function HomePage() {
   const [systemPromptExpanded, setSystemPromptExpanded] = useState(false);
@@ -299,6 +301,9 @@ export default function HomePage() {
               </Card>
             )}
 
+            {/* Expert Response Upload */}
+            <ExpertResponseUpload />
+
             {/* Export */}
             {currentRun && currentRun.stats.completed > 0 && (
               <Card>
@@ -329,8 +334,12 @@ export default function HomePage() {
             )}
           </div>
 
-          {/* Right Panel - Results */}
-          <div className="lg:col-span-2">
+          {/* Right Panel - Results and Analysis */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Expert Analysis */}
+            <ExpertAnalysis />
+            
+            {/* AI Results */}
             <Card>
               <CardHeader>
                 <CardTitle>Results</CardTitle>

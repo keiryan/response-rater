@@ -29,6 +29,24 @@ export interface RunConfig {
   loopCapAtRunTime: number; // snapshot of current loop cap
 }
 
+export interface ExpertResponse {
+  id: string;
+  text: string;
+  metadata?: Record<string, unknown>;
+}
+
+export interface ResponseClassification {
+  isAIGenerated: boolean;
+  confidence: number;
+  likelyModel?: string;
+  similarityScores: {
+    levenshtein: number;
+    cosine: number;
+    tfIdf: number;
+  };
+  classification: "red" | "yellow" | "green";
+}
+
 export interface ResponseRecord {
   id: string;
   runId: string;
@@ -49,6 +67,8 @@ export interface ResponseRecord {
   truncated?: boolean;
   errorMessage?: string;
   retryCount: number;
+  source?: "ai" | "expert";
+  classification?: ResponseClassification;
 }
 
 export interface Run {
